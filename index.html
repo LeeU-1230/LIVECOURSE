@@ -6,7 +6,37 @@
     <title>Document</title>
 </head>
 <body>
-    <p>切版完成</p>
-    <p>修改後上傳</p>
-</body>
+    <h2>使用switch</h2>
+    <h3>範例:天氣預報</h3>
+    <h3>這周天氣預報: <span id="weather">大陸冷氣團</span></h3>
+    <h5 id="temperature"></h5>
+  
+        
+    <script>
+      var theweather = document.getElementById("weather").innerHTML;
+      var output = document.getElementById("temperature");   
+  
+      switch (theweather) {
+          case "東北風":
+          output.textContent = "預測最低溫在１９度以上";
+            break;
+  
+          case "東北季風":
+          output.textContent = "預測最低溫在１４～１９度";
+            break;
+  
+          case "大陸冷氣團":
+          output.textContent = "預測最低溫會降到１２～１４度";
+            break;
+  
+          case "強烈大陸冷氣團":
+          output.textContent = "預測最低溫會降到１０～１２度";
+            break;
+      
+          default:
+          output.textContent = "寒流來啦~預測最低溫會降到１０度或以下";
+              break;
+      }
+    </script>
+  </body>
 </html>
