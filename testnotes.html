@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習備忘</title>
+
+    <style>
+        h2{text-align: center;
+            margin: 16px;
+        }
+        body{font-family: Microsoft JhengHei, Arial, Helvetica, sans-serif;
+            background-image: url("test-site/images/pp.png");
+             background-repeat: no-repeat;
+        }
+
+        ul {display: inline-block;
+            width: 50%;
+            list-style-type: none;}
+        li {font-size: 16px;
+            padding: 5px;
+            margin: 5px;
+            
+        }
+        a {text-decoration:none;
+           }
+        a:hover{color: crimson;}
+        #write{width: 60%;
+               border: 2px solid red;
+               font-size: 16px;
+               padding: 5px;
+               margin: 5px;
+        }
+        #btn{background-color:rgb(238, 172, 49);
+            border: none;
+            color: white;    
+            font-size: 16px;
+            padding: 6px;
+        }
+        #input{
+            position: fixed;
+            bottom: 70%;
+            right: 30%;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>test備忘</h2>
+    <div>
+    <ul id="list"></ul>
+    </div>
+    <div id="input">
+        <form>
+            <input type="text" id="write" placeholder="建立備忘事項">
+            <input type="button" id="btn" value="輸入事項">
+        </form>
+    </div>
+
+    <script>
+        var Btn = document.getElementById('btn');
+        var Note = document.getElementById('write');
+        var Lists = document.getElementById('list');
+        var data = [];                                             //空陣列儲存資料
+
+        Btn.addEventListener('click',Keyin,false);                 //輸入內容
+        
+        Update(data);                                              //更新data陣列
+
+        function Keyin(e){
+            var Notes = Note.value;                                //取得值
+
+            var Obj = {item : Notes};                              //建立成物件，加入陣列中
+            data.push(Obj);
+            console.log(data);
+
+            Update(data);                                          //更新data陣列
+
+            localStorage.setItem('doit',JSON.stringify(data));     //資料轉入localStorage
+            
+
+            Note.value = "";                                       //將輸入欄清空
+            
+        }
+
+        data = JSON.parse(localStorage.getItem('doit'));           //從localStorage取資料，來更新data陣列
+        Update(data);  
+
+        function Update(){                                         //輸出網頁內容
+            var str = '';
+            for(var i = 0 ; i < data.length ; i++){
+            str += '<li><a href="#" data-num=' + [i] +'>刪除</a> ' + data[i].item + ' </li>';
+            }
+            Lists.innerHTML = str;
+        }
+
+        Lists.addEventListener('click',Del,false);                 //刪除內容
+
+        function Del(e){
+            if(e.target.nodeName == 'A'){
+                var Delit = e.target.dataset.num;                  //取得li的data-num
+                
+                data.splice(Delit,1);                              //刪除這一個li
+
+                localStorage.setItem('doit',JSON.stringify(data)); //資料轉入localStorage
+
+                Update(data);                                      //更新data陣列
+            }
+        }
+
+        Note.addEventListener('keydown',function(e){               //增加enter鍵輸入
+            if(e.keyCode == 13){
+                Btn.click();
+            }
+        },false)
+
+    </script>
+</body>
+</html>
