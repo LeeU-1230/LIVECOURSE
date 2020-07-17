@@ -3,131 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>練習備忘</title>
-
-    <style>
-
-        body {background-image: url("background.png");
-               background-repeat: no-repeat;
-               background-size: 80%;
-               font-family: Microsoft JhengHei, Arial, Helvetica, sans-serif; 
-        }
-
-        #input {position: fixed;
-                bottom: 6%; 
-                right: 50%;
-                text-align: center;
-                font-size: 14px;
-        }
-
-        #write{width: 60%;
-               border: 1px solid black;
-               padding: 3px;
-               margin: 5px;
-        }
-        #btn{background-color:rgb(195, 179, 253);
-            border: none;
-            color: rgb(33, 101, 105);
-            padding: 3px;
-            border-radius: 10px;
-        }
-
-        #btn:hover{background-color:rgb(132, 216, 255);
-                   color: chocolate;
-        }
-
-
-        ul {display: inline-block;
-            width: 20%;
-            list-style-type: none;
-            position: absolute;
-            top: 3%;
-            left: 27%;
-            }
-        li {font-size: 12px;
-            padding: 10px;
-        }
-        a {text-decoration:none;
-           background-color: rgb(243, 233, 224);
-           color: rgb(68, 173, 7);
-           padding: 5px;
-           border-radius: 25px;
-           }
-        a:hover{background-color: rgb(243, 196, 151);
-                color: rgb(153, 73, 8);
-        }
-
- 
-
-    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="travel.css" type="text/css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="input">
-        <hr>
-        <form>
-            <input type="text" id="write" placeholder="建立備忘事項">
-            <input type="button" id="btn" value="輸入事項">
-        </form>
-    </div>
+
+<div class="backphoto">
+    <h2>台南旅遊資訊</h2>
+</div>
     
-    <div>
-    <ul id="list"></ul>
-    </div>
+<div class="xbox">
+    <select class="area">
+        <option value="請選擇區域">請選擇區域</option>
+        <option value="中西區">中西區</option>
+        <option value="東區">東區</option>
+        <option value="南區">南區</option>
+        <option value="北區">北區</option>
+        <option value="安平區">安平區</option>
+        <!--<option value="安南區">安南區</option>
+        <option value="永康區">永康區</option>
+        <option value="歸仁區">歸仁區</option>
+        <option value="新化區">新化區</option>
+        <option value="左鎮區">左鎮區</option>
+        <option value="玉井區">玉井區</option>
+        <option value="楠西區">楠西區</option>
+        <option value="南化區">南化區</option>
+        <option value="仁德區">仁德區</option>
+        <option value="關廟區">關廟區</option>
+        <option value="龍崎區">龍崎區</option>
+        <option value="官田區">官田區</option>
+        <option value="麻豆區">麻豆區</option>
+        <option value="佳里區">佳里區</option>
+        <option value="西港區">西港區</option>
+        <option value="七股區">將軍區</option>
+        <option value="學甲區">學甲區</option>
+        <option value="北門區">北門區</option>
+        <option value="新營區">新營區</option>
+        <option value="後壁區">後壁區</option>
+        <option value="白河區">白河區</option>
+        <option value="東山區">東山區</option>
+        <option value="六甲區">六甲區</option>
+        <option value="下營區">下營區</option>
+        <option value="柳營區">柳營區</option>
+        <option value="鹽水區">鹽水區</option>
+        <option value="善化區">善化區</option>
+        <option value="大內區">大內區</option>
+        <option value="山上區">山上區</option>
+        <option value="新市區">新市區</option>
+        <option value="安定區">安定區</option> -->
+    </select>
 
-    <script>
-        var Btn = document.getElementById('btn');
-        var Note = document.getElementById('write');
-        var Lists = document.getElementById('list');
-        var data = JSON.parse(localStorage.getItem('doit')) || []; //從localStorage提取資料
+    <form class="hot">
+        <input type="button" class="hotarea" value="中西區">
+        <input type="button" class="hotarea" value="東區">
+        <input type="button" class="hotarea" value="南區">
+        <input type="button" class="hotarea" value="北區">
+        <input type="button" class="hotarea" value="安平區">
+    </form>
 
-        Btn.addEventListener('click',Keyin,false);                 //輸入內容
-        
-        Update(data);                                              //更新data陣列
+<ul class="list">
+</ul>
 
-        function Keyin(e){
-            var Notes = Note.value;                                //取得值
+<ul class="pg">
+</ul>
+</div>
 
-            var Obj = {item : Notes};                              //建立成物件，加入陣列中
-            data.push(Obj);
 
-            Update(data);                                          //更新data陣列
-
-            localStorage.setItem('doit',JSON.stringify(data));     //資料轉入localStorage
-            
-
-            Note.value = "";                                       //將輸入欄清空
-            
-        }
-
-        function Update(){                                         //輸出網頁內容
-            var str = '';
-            for(var i = 0 ; i < data.length ; i++){
-            str += '<li><a href="#" data-num=' + [i] +'>完成</a> ' + data[i].item + ' </li>';
-            }
-            Lists.innerHTML = str;
-        }
-
-        Lists.addEventListener('click',Del,false);                 //刪除內容
-
-        function Del(e){
-            if(e.target.nodeName == 'A'){
-                var Delit = e.target.dataset.num;                  //取得li的data-num
-                
-                data.splice(Delit,1);                              //刪除這一個li
-
-                localStorage.setItem('doit',JSON.stringify(data)); //資料轉入localStorage
-
-                Update(data);                                      //更新data陣列
-            }
-        }
-
-        Note.addEventListener('keydown',function(e){               //增加enter鍵輸入
-            if(e.keyCode == 13){
-                e.preventDefault(); 
-                Keyin();
-            }
-        },false)
-
-    </script>
+<script src="travel-1.js"></script>
 </body>
 </html>
